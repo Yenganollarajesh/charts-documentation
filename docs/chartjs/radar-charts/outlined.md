@@ -112,6 +112,6 @@ angleLines: {
 
 ## Next Steps
 
-- [Basic Radar Chart](/chartjs/radar-charts/)
+- [Basic Radar Chart](/chartjs/radar-charts)
 - [Multi-Radar Chart](/chartjs/radar-charts/multi-radar)
 - [Filled Radar Chart](/chartjs/radar-charts/filled-radar)

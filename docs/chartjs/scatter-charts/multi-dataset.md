@@ -145,7 +145,7 @@ plugins: {
 
 ## Next Steps
 
-- [Basic Scatter Chart](/chartjs/scatter-charts/)
+- [Basic Scatter Chart](/chartjs/scatter-charts)
 - [Scatter with Line](/chartjs/scatter-charts/with-line)
 - [Bubble Chart](/chartjs/scatter-charts/bubble)
 - [Multi-Dataset Bubble](/chartjs/scatter-charts/multi-bubble)

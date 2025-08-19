@@ -100,7 +100,7 @@ const data = {
 
 ## Next Steps
 
-- [Basic Scatter Chart](/chartjs/scatter-charts/)
+- [Basic Scatter Chart](/chartjs/scatter-charts)
 - [Multi-Dataset Scatter](/chartjs/scatter-charts/multi-dataset)
 - [Bubble Chart](/chartjs/scatter-charts/bubble)
 - [Multi-Dataset Bubble](/chartjs/scatter-charts/multi-bubble)

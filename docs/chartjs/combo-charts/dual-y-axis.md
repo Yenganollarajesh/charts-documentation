@@ -156,7 +156,7 @@ scales: {
 
 ## Next Steps
 
-- [Basic Combo Chart](/chartjs/combo-charts/)
+- [Basic Combo Chart](/chartjs/combo-charts)
 - [Stacked Bar + Line](/chartjs/combo-charts/stacked-bar-line)
 - [Line + Area Range](/chartjs/combo-charts/line-area-range)
 - [Scatter + Trend Line](/chartjs/combo-charts/scatter-trend-line)

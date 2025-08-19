@@ -88,7 +88,7 @@ const data = {
 
 ## Next Steps
 
-- [Basic Line Chart](/chartjs/line-charts/)
+- [Basic Line Chart](/chartjs/line-charts)
 - [Area Chart](/chartjs/line-charts/area)
 - [Stepped Line Chart](/chartjs/line-charts/stepped)
 - [Dashed Line Chart](/chartjs/line-charts/dashed)

@@ -156,7 +156,7 @@ options: {
 
 ## Next Steps
 
-- [Basic Combo Chart](/chartjs/combo-charts/)
+- [Basic Combo Chart](/chartjs/combo-charts)
 - [Dual Y-Axis Combo Chart](/chartjs/combo-charts/dual-y-axis)
 - [Line + Area Range](/chartjs/combo-charts/line-area-range)
 - [Scatter + Trend Line](/chartjs/combo-charts/scatter-trend-line)

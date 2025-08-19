@@ -179,7 +179,7 @@ options: {
 
 ## Next Steps
 
-- [Basic Combo Chart](/chartjs/combo-charts/)
+- [Basic Combo Chart](/chartjs/combo-charts)
 - [Dual Y-Axis Combo Chart](/chartjs/combo-charts/dual-y-axis)
 - [Stacked Bar + Line](/chartjs/combo-charts/stacked-bar-line)
 - [Line + Area Range](/chartjs/combo-charts/line-area-range)
