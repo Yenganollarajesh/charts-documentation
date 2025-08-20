@@ -8,15 +8,166 @@ description: Combo chart combining scatter points with a trend line
 A combo chart that combines scatter points with a trend line, perfect for showing individual data points alongside their overall trend or regression line. Ideal for correlation analysis, trend identification, and statistical modeling.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import ScatterTrendLineComboChartExample from '../components/ScatterTrendLineComboChartExample.vue'
 </script>
 
-<ScatterTrendLineComboChartExample />
+## Scatter + Trend Line Combo Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="scatter"
+  :chart-data="{
+    datasets: [
+      {
+        label: 'Data Points (Scatter)',
+        data: [
+          { x: 10, y: 20 },
+          { x: 15, y: 25 },
+          { x: 20, y: 30 },
+          { x: 25, y: 35 },
+          { x: 30, y: 40 },
+          { x: 35, y: 45 },
+          { x: 40, y: 50 },
+          { x: 45, y: 55 },
+          { x: 50, y: 60 },
+          { x: 55, y: 65 }
+        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        type: 'scatter'
+      },
+      {
+        label: 'Trend Line',
+        data: [
+          { x: 10, y: 20 },
+          { x: 15, y: 25 },
+          { x: 20, y: 30 },
+          { x: 25, y: 35 },
+          { x: 30, y: 40 },
+          { x: 35, y: 45 },
+          { x: 40, y: 50 },
+          { x: 45, y: 55 },
+          { x: 50, y: 60 },
+          { x: 55, y: 65 }
+        ],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderWidth: 3,
+        fill: false,
+        tension: 0.1,
+        type: 'line',
+        pointRadius: 0,
+        showLine: true
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Data Correlation with Trend Line',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            return `${label}: (${context.parsed.x}, ${value})`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X Axis',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Y Axis',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    interaction: {
+      mode: 'nearest',
+      axis: 'x',
+      intersect: false
+    }
+  }"
+>
+  <template #chart>
+    <ScatterTrendLineComboChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="scatter"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   datasets: [
     {
       label: 'Data Points (Scatter)',
@@ -59,11 +210,96 @@ const data = {
       fill: false,
       tension: 0.1,
       type: 'line',
-      pointRadius: 0,        // No visible points for trend line
-      showLine: true         // Ensure line is visible
+      pointRadius: 0,
+      showLine: true
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Data Correlation with Trend Line',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.y
+          return `${label}: (${context.parsed.x}, ${value})`
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'X Axis',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Y Axis',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  },
+  interaction: {
+    mode: 'nearest',
+    axis: 'x',
+    intersect: false
+  }
+}
+</script>
 ```
 
 ## Key Features

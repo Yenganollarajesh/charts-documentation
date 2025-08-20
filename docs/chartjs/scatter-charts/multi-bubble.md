@@ -8,15 +8,133 @@ description: Bubble chart with multiple datasets for comprehensive comparison
 A bubble chart that displays multiple datasets simultaneously, allowing for comprehensive comparison of three-dimensional data across different groups, categories, or time periods.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import MultiBubbleChartExample from '../components/MultiBubbleChartExample.vue'
 </script>
 
-<MultiBubbleChartExample />
+## Multi-Dataset Bubble Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="bubble"
+  :chart-data="{
+    datasets: [
+      {
+        label: 'Dataset A',
+        data: [
+          { x: 20, y: 30, r: 3 },
+          { x: 40, y: 50, r: 6 },
+          { x: 60, y: 70, r: 9 }
+        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2
+      },
+      {
+        label: 'Dataset B',
+        data: [
+          { x: 25, y: 35, r: 5 },
+          { x: 45, y: 55, r: 8 },
+          { x: 65, y: 75, r: 12 }
+        ],
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 2
+      },
+      {
+        label: 'Dataset C',
+        data: [
+          { x: 30, y: 40, r: 4 },
+          { x: 50, y: 60, r: 7 },
+          { x: 70, y: 80, r: 10 }
+        ],
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 2
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Multi-Dataset Bubble Chart',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Y Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <MultiBubbleChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bubble"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   datasets: [
     {
       label: 'Dataset A',
@@ -53,6 +171,69 @@ const data = {
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Multi-Dataset Bubble Chart',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'X Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Y Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features

@@ -9,7 +9,12 @@
     "docs:preview": "vitepress preview docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["chartjs", "charts", "documentation", "data-visualization"],
+  "keywords": [
+    "chartjs",
+    "charts",
+    "documentation",
+    "data-visualization"
+  ],
   "author": "",
   "license": "ISC",
   "description": "Comprehensive Chart.js documentation with interactive examples",
@@ -17,6 +22,8 @@
     "vitepress": "^1.6.4"
   },
   "dependencies": {
-    "chart.js": "^4.4.1"
+    "apexcharts": "^5.3.3",
+    "chart.js": "^4.4.1",
+    "vue3-apexcharts": "^1.8.0"
   }
 }

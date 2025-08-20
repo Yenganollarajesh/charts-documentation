@@ -3,8 +3,8 @@ title: Bar Charts
 ---
 
 <script setup>
+import ChartCodeToggle from './components/ChartCodeToggle.vue'
 import BarChartExample from './components/BarChartExample.vue'
-import TickControlExample from './components/TickControlExample.vue'
 </script>
 
 # Bar Charts
@@ -13,9 +13,241 @@ Bar charts are excellent for comparing quantities across different categories. T
 
 ## Basic Bar Chart
 
-Here's a comprehensive interactive bar chart with full configuration details:
+<ChartCodeToggle 
+  chart-name="bar"
+  :chart-data="{
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        label: 'Sales',
+        data: [65, 59, 80, 81, 56, 55],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 205, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(153, 102, 255)',
+          'rgb(255, 159, 64)'
+        ],
+        borderWidth: 2,
+        borderRadius: 4,
+        borderSkipped: false
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Monthly Sales Performance',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          },
+          padding: 10
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Sales Amount ($)',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          },
+          padding: 10,
+          callback: function(value) {
+            return '$' + value + 'K'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    layout: {
+      padding: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20
+      }
+    }
+  }"
+>
+  <template #chart>
+    <BarChartExample />
+  </template>
+</ChartCodeToggle>
 
-<BarChartExample />
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  datasets: [
+    {
+      label: 'Sales',
+      data: [65, 59, 80, 81, 56, 55],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 205, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 159, 64)'
+      ],
+      borderWidth: 2,
+      borderRadius: 4,
+      borderSkipped: false
+    }
+  ]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Monthly Sales Performance',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        },
+        padding: 10
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Sales Amount ($)',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        },
+        padding: 10,
+        callback: function(value) {
+          return '$' + value + 'K'
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  },
+  layout: {
+    padding: {
+      top: 20,
+      right: 20,
+      bottom: 20,
+      left: 20
+    }
+  }
+}
+</script>
+```
 
 ## Bar Chart Features
 
@@ -38,79 +270,7 @@ Compare multiple series on the same chart:
 - **Animations**: Smooth transitions and updates
 - **Responsive Design**: Adapts to container size
 
-## Configuration Options
 
-### Basic Configuration
-
-```javascript
-const config = {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Sales',
-      data: [65, 59, 80, 81, 56],
-      backgroundColor: 'rgba(75, 192, 192, 0.8)',
-      borderColor: 'rgb(75, 192, 192)',
-      borderWidth: 2
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Monthly Sales'
-      }
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Month'
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Sales Value'
-        }
-      }
-    }
-  }
-}
-```
-
-### Advanced Styling
-
-```javascript
-const advancedConfig = {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Revenue',
-      data: [65, 59, 80, 81, 56],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.8)',
-        'rgba(54, 162, 235, 0.8)',
-        'rgba(255, 205, 86, 0.8)',
-        'rgba(75, 192, 192, 0.8)',
-        'rgba(153, 102, 255, 0.8)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)'
-      ],
-      borderWidth: 2,
-      borderRadius: 4
-    }]
-  }
-}
-```
 
 ### Axis Label Customization
 
@@ -198,121 +358,10 @@ scales: {
 }
 ```
 
-**Alternative: Custom Tick Values Array:**
 
-You can also specify exactly which values to show:
 
-```javascript
-scales: {
-  y: {
-    ticks: {
-      callback: function(value) {
-        return '$' + value + 'K';
-      },
-      // Show only these specific values
-      values: [0, 25, 50, 75, 100]
-    }
-  }
-}
-```
 
-**Example Flow:**
-```javascript
-// Chart.js calculates these tick values: [0, 10, 20, 30, 40, 50]
-// Then calls your callback for each value:
 
-callback(0)   → returns "$0K"    → displays "$0K"
-callback(10)  → returns "$10K"   → displays "$10K"  
-callback(20)  → returns "$20K"   → displays "$20K"
-callback(30)  → returns "$30K"   → displays "$30K"
-callback(40)  → returns "$40K"   → displays "$40K"
-callback(50)  → returns "$50K"   → displays "$50K"
-```
-
-**Common Tick Label Formats:**
-
-```javascript
-// Currency formatting
-callback: function(value) {
-  return '$' + value.toLocaleString();
-}
-
-// Percentage formatting
-callback: function(value) {
-  return value + '%';
-}
-
-// Thousand separator (K, M, B)
-callback: function(value) {
-  if (value >= 1000000) {
-    return (value / 1000000).toFixed(1) + 'M';
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(1) + 'K';
-  }
-  return value;
-}
-
-// Custom decimal places
-callback: function(value) {
-  return value.toFixed(2);
-}
-```
-
-#### Complete Axis Configuration Example
-
-```javascript
-scales: {
-  x: {
-    type: 'category',
-    position: 'bottom',
-    title: {
-      display: true,
-      text: 'Month',
-      font: {
-        size: 14,
-        weight: 'bold'
-      }
-    },
-    ticks: {
-      font: {
-        size: 12
-      }
-    },
-    grid: {
-      color: 'rgba(0, 0, 0, 0.1)'
-    }
-  },
-  y: {
-    type: 'linear',
-    position: 'left',
-    title: {
-      display: true,
-      text: 'Sales Value ($K)',
-      font: {
-        size: 14,
-        weight: 'bold'
-      }
-    },
-    ticks: {
-      font: {
-        size: 12
-      },
-      callback: function(value) {
-        return '$' + value + 'K';
-      }
-    },
-    grid: {
-      color: 'rgba(0, 0, 0, 0.1)'
-    }
-  }
-}
-```
-
-## Interactive Example: Tick Control
-
-See the difference between automatic tick calculation and custom tick control:
-
-<TickControlExample />
 
 ## Bar Chart Variants
 
@@ -352,8 +401,8 @@ Explore different bar chart variations to see how they can be customized:
 ## Next Steps
 
 - Learn about [Line Charts](/chartjs/line-charts)
-- Explore [Chart Configuration](#configuration-options)
-- See [Interactive Examples](#interactive-example-tick-control)
+- Explore [Pie Charts](/chartjs/pie-charts)
+- See [Scatter Charts](/chartjs/scatter-charts)
 
 ---
 

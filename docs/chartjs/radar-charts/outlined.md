@@ -8,33 +8,178 @@ description: Clean radar chart with outlined areas for minimal data visualizatio
 A clean, minimal radar chart that shows data boundaries and patterns using outlined areas instead of filled regions. Perfect for professional presentations and clean data visualization.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import OutlinedRadarChartExample from '../components/OutlinedRadarChartExample.vue'
 </script>
 
-<OutlinedRadarChartExample />
+## Outlined Radar Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="radar"
+  :chart-data="{
+    labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+    datasets: [
+      {
+        label: 'Outline',
+        data: [45, 38, 40, 25, 15, 28, 35],
+        borderColor: 'rgb(255, 165, 0)',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderDash: [5, 5],
+        pointBackgroundColor: 'rgb(255, 165, 0)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: false
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Outline Radar',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20,
+        color: '#333'
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          color: '#333'
+        }
+      }
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 70,
+        min: 0,
+        ticks: {
+          stepSize: 10,
+          font: {
+            size: 12
+          },
+          color: '#666'
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
+          lineWidth: 1
+        },
+        pointLabels: {
+          font: {
+            size: 13,
+            weight: '500'
+          },
+          color: '#333'
+        },
+        angleLines: {
+          color: 'rgba(0, 0, 0, 0.1)',
+          lineWidth: 1
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <OutlinedRadarChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="radar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
   datasets: [
     {
       label: 'Outline',
       data: [45, 38, 40, 25, 15, 28, 35],
-      borderColor: 'rgb(255, 165, 0)',    // Orange color
-      backgroundColor: 'transparent',       // No fill - outlined only
+      borderColor: 'rgb(255, 165, 0)',
+      backgroundColor: 'transparent',
       borderWidth: 2,
-      borderDash: [5, 5],                  // Dashed line pattern
+      borderDash: [5, 5],
       pointBackgroundColor: 'rgb(255, 165, 0)',
       pointBorderColor: '#fff',
       pointBorderWidth: 1,
       pointRadius: 4,
       pointHoverRadius: 6,
-      fill: false                          // Key property for outlined chart
+      fill: false
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Outline Radar',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20,
+      color: '#333'
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        color: '#333'
+      }
+    }
+  },
+  scales: {
+    r: {
+      beginAtZero: true,
+      max: 70,
+      min: 0,
+      ticks: {
+        stepSize: 10,
+        font: {
+          size: 12
+        },
+        color: '#666'
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)',
+        lineWidth: 1
+      },
+      pointLabels: {
+        font: {
+          size: 13,
+          weight: '500'
+        },
+        color: '#333'
+      },
+      angleLines: {
+        color: 'rgba(0, 0, 0, 0.1)',
+        lineWidth: 1
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features

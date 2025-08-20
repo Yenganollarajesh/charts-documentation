@@ -8,15 +8,113 @@ description: Scatter chart with varying point sizes representing a third dimensi
 A bubble chart extends the scatter chart concept by adding a third dimension through varying point sizes. Each bubble represents three values: X position, Y position, and radius (size), making it perfect for multi-dimensional data visualization.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import BubbleChartExample from '../components/BubbleChartExample.vue'
 </script>
 
-<BubbleChartExample />
+## Bubble Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="bubble"
+  :chart-data="{
+    datasets: [
+      {
+        label: 'Bubble Data',
+        data: [
+          { x: 20, y: 30, r: 15 },
+          { x: 40, y: 50, r: 5 },
+          { x: 60, y: 70, r: 10 },
+          { x: 80, y: 90, r: 15 },
+          { x: 100, y: 110, r: 20 }
+        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Basic Bubble Chart',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Y Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <BubbleChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bubble"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   datasets: [
     {
       label: 'Bubble Data',
@@ -33,6 +131,69 @@ const data = {
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Basic Bubble Chart',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'X Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Y Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features

@@ -8,15 +8,123 @@ description: Scatter chart with connecting lines between data points
 A scatter chart that connects data points with lines, perfect for showing trends and patterns while maintaining the precision of individual data points.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import ScatterWithLineExample from '../components/ScatterWithLineExample.vue'
 </script>
 
-<ScatterWithLineExample />
+## Scatter Chart with Line
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="scatter"
+  :chart-data="{
+    datasets: [
+      {
+        label: 'Data with Line',
+        data: [
+          { x: 10, y: 20 },
+          { x: 15, y: 25 },
+          { x: 20, y: 30 },
+          { x: 25, y: 35 },
+          { x: 30, y: 40 },
+          { x: 35, y: 45 },
+          { x: 40, y: 50 },
+          { x: 45, y: 55 },
+          { x: 50, y: 60 },
+          { x: 55, y: 65 }
+        ],
+        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 3,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        showLine: true,
+        tension: 0.4,
+        fill: false
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Scatter Chart with Line',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Y Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <ScatterWithLineExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="scatter"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   datasets: [
     {
       label: 'Data with Line',
@@ -25,19 +133,87 @@ const data = {
         { x: 15, y: 25 },
         { x: 20, y: 30 },
         { x: 25, y: 35 },
-        { x: 30, y: 40 }
+        { x: 30, y: 40 },
+        { x: 35, y: 45 },
+        { x: 40, y: 50 },
+        { x: 45, y: 55 },
+        { x: 50, y: 60 },
+        { x: 55, y: 65 }
       ],
       backgroundColor: 'rgba(54, 162, 235, 0.8)',
       borderColor: 'rgb(54, 162, 235)',
       borderWidth: 3,
       pointRadius: 6,
       pointHoverRadius: 8,
-      showLine: true,    // Show connecting lines
-      tension: 0.4,      // Smooth curve
-      fill: false        // No fill under the line
+      showLine: true,
+      tension: 0.4,
+      fill: false
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Scatter Chart with Line',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'X Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Y Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features

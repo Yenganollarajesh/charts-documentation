@@ -3,6 +3,7 @@ title: Radar Charts
 ---
 
 <script setup>
+import ChartCodeToggle from './components/ChartCodeToggle.vue'
 import RadarChartExample from './components/RadarChartExample.vue'
 </script>
 
@@ -12,9 +13,203 @@ Radar charts (also known as spider charts or star charts) are perfect for displa
 
 ## Basic Radar Chart
 
-Here's a comprehensive interactive radar chart with full configuration details:
+<ChartCodeToggle 
+  chart-name="radar"
+  :chart-data="{
+    labels: ['Speed', 'Handling', 'Safety', 'Comfort', 'Efficiency', 'Reliability'],
+    datasets: [
+      {
+        label: 'Car A',
+        data: [80, 75, 90, 85, 70, 88],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        pointBackgroundColor: 'rgb(255, 99, 132)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointRadius: 5,
+        pointHoverRadius: 7
+      },
+      {
+        label: 'Car B',
+        data: [70, 85, 75, 80, 90, 82],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 2,
+        pointBackgroundColor: 'rgb(54, 162, 235)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgb(54, 162, 235)',
+        pointRadius: 5,
+        pointHoverRadius: 7
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Car Performance Comparison',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.r
+            return `${label}: ${value}`
+          }
+        }
+      }
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        },
+        pointLabels: {
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <RadarChartExample />
+  </template>
+</ChartCodeToggle>
 
-<RadarChartExample />
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="radar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
+  labels: ['Speed', 'Handling', 'Safety', 'Comfort', 'Efficiency', 'Reliability'],
+  datasets: [
+    {
+      label: 'Car A',
+      data: [80, 75, 90, 85, 70, 88],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgb(255, 99, 132)',
+      borderWidth: 2,
+      pointBackgroundColor: 'rgb(255, 99, 132)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(255, 99, 132)',
+      pointRadius: 5,
+      pointHoverRadius: 7
+    },
+    {
+      label: 'Car B',
+      data: [70, 85, 75, 80, 90, 82],
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgb(54, 162, 235)',
+      borderWidth: 2,
+      pointBackgroundColor: 'rgb(54, 162, 235)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(54, 162, 235)',
+      pointRadius: 5,
+      pointHoverRadius: 7
+    }
+  ]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Car Performance Comparison',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.r
+          return `${label}: ${value}`
+        }
+      }
+    }
+  },
+  scales: {
+    r: {
+      beginAtZero: true,
+      max: 100,
+      ticks: {
+        stepSize: 20,
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      },
+      pointLabels: {
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      }
+    }
+  }
+}
+</script>
+```
 
 ## Radar Chart Features
 

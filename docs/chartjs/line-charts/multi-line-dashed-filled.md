@@ -3,20 +3,130 @@ title: Multi-Line Dashed & Filled Chart
 description: Advanced line chart combining dashed lines and filled areas
 ---
 
+<script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
+import MultiLineDashedFilledChartExample from '../components/MultiLineDashedFilledChartExample.vue'
+</script>
+
 # Multi-Line Dashed & Filled Chart
 
 A sophisticated line chart that combines multiple datasets with different line styles (dashed patterns) and filled areas for enhanced visual appeal.
 
+## Basic Multi-Line Dashed & Filled Chart
+
+<ChartCodeToggle 
+  chart-name="line"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [65, 59, 80, 81, 56, 55],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+        borderWidth: 3,
+        borderDash: [5, 5],
+        fill: true,
+        tension: 0.4
+      },
+      {
+        label: 'Profit',
+        data: [28, 48, 40, 19, 86, 27],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderWidth: 3,
+        fill: false,
+        tension: 0.4
+      },
+      {
+        label: 'Expenses',
+        data: [45, 25, 16, 36, 67, 18],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+        borderWidth: 3,
+        borderDash: [15, 3],
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Multi-Line Dashed & Filled Chart',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 13
+          }
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Value ($K)',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 13
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <MultiLineDashedFilledChartExample />
+  </template>
+</ChartCodeToggle>
+
+### Chart Configuration
+
+<!-- #### Using the Component -->
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="line"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
 <script setup>
-import MultiLineDashedFilledChartExample from '../components/MultiLineDashedFilledChartExample.vue'
-</script>
+import ChartComponent from './ChartComponent.vue'
 
-<MultiLineDashedFilledChartExample />
-
-## Chart Configuration
-
-```javascript
-const data = {
+const chartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
     {
@@ -25,9 +135,9 @@ const data = {
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.1)',
       borderWidth: 3,
-      borderDash: [5, 5],        // Dashed line pattern
-      fill: true,                 // Filled area
-      tension: 0.4               // Smooth curves
+      borderDash: [5, 5],
+      fill: true,
+      tension: 0.4
     },
     {
       label: 'Profit',
@@ -35,8 +145,8 @@ const data = {
       borderColor: 'rgb(54, 162, 235)',
       backgroundColor: 'rgba(54, 162, 235, 0.1)',
       borderWidth: 3,
-      fill: false,                 // Filled area
-      tension: 0.4               // Smooth curves
+      fill: false,
+      tension: 0.4
     },
     {
       label: 'Expenses',
@@ -44,12 +154,68 @@ const data = {
       borderColor: 'rgb(75, 192, 192)',
       backgroundColor: 'rgba(75, 192, 192, 0.1)',
       borderWidth: 3,
-      borderDash: [15, 3],       // Another dash pattern
-      fill: true,                 // Filled area
-      tension: 0.4               // Smooth curves
+      borderDash: [15, 3],
+      fill: true,
+      tension: 0.4
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Multi-Line Dashed & Filled Chart',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 13
+        }
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value ($K)',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 13
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features
@@ -60,7 +226,7 @@ const data = {
 - **Legend display**: Shows all three datasets clearly
 
 ### **Advanced Line Styling**
-- **Dashed patterns**: `borderDash: [5, 5]`, `[10, 5]`, `[15, 3]`
+- **Dashed patterns**: `borderDash: [5, 5]`, `[15, 3]`
 - **Filled areas**: `fill: true` with semi-transparent backgrounds
 - **Smooth curves**: `tension: 0.4` for elegant line flow
 

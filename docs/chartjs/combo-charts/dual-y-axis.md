@@ -8,15 +8,169 @@ description: Combo chart with two y-axes for different data scales
 A combo chart that combines bar and line charts with dual y-axes, allowing you to visualize data with different scales on the same chart. Perfect for comparing metrics that have vastly different ranges or units.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import DualYAxisComboChartExample from '../components/DualYAxisComboChartExample.vue'
 </script>
 
-<DualYAxisComboChartExample />
+## Dual Y-Axis Combo Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="bar"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Sales Volume (Bar)',
+        data: [120, 150, 180, 200, 220, 250],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        type: 'bar',
+        yAxisID: 'y'
+      },
+      {
+        label: 'Revenue % (Line)',
+        data: [15, 25, 35, 45, 55, 65],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        type: 'line',
+        yAxisID: 'y1'
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Sales Volume vs Revenue %',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            if (context.dataset.type === 'line') {
+              return `${label}: ${value}%`
+            }
+            return `${label}: ${value}`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Sales Volume',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y1: {
+        type: 'linear',
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Revenue %',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          },
+          callback: function(value) {
+            return value + '%'
+          }
+        },
+        grid: {
+          drawOnChartArea: false
+        }
+      }
+    },
+    interaction: {
+      mode: 'nearest',
+      axis: 'x',
+      intersect: false
+    }
+  }"
+>
+  <template #chart>
+    <DualYAxisComboChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
     {
@@ -26,7 +180,7 @@ const data = {
       borderColor: 'rgb(255, 99, 132)',
       borderWidth: 2,
       type: 'bar',
-      yAxisID: 'y'  // Left y-axis
+      yAxisID: 'y'
     },
     {
       label: 'Revenue % (Line)',
@@ -37,10 +191,121 @@ const data = {
       fill: true,
       tension: 0.4,
       type: 'line',
-      yAxisID: 'y1'  // Right y-axis
+      yAxisID: 'y1'
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Sales Volume vs Revenue %',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.y
+          if (context.dataset.type === 'line') {
+            return `${label}: ${value}%`
+          }
+          return `${label}: ${value}`
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'category',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Sales Volume',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y1: {
+      type: 'linear',
+      position: 'right',
+      title: {
+        display: true,
+        text: 'Revenue %',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        },
+        callback: function(value) {
+          return value + '%'
+        }
+      },
+      grid: {
+        drawOnChartArea: false
+      }
+    }
+  },
+  interaction: {
+    mode: 'nearest',
+    axis: 'x',
+    intersect: false
+  }
+}
+</script>
 ```
 
 ## Key Features

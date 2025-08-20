@@ -8,15 +8,145 @@ description: Scatter chart with multiple datasets for comparison
 A scatter chart that displays multiple datasets simultaneously, allowing for easy comparison and analysis of different groups or categories of data.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import MultiScatterChartExample from '../components/MultiScatterChartExample.vue'
 </script>
 
-<MultiScatterChartExample />
+## Multi-Dataset Scatter Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="scatter"
+  :chart-data="{
+    datasets: [
+      {
+        label: 'Dataset A',
+        data: [
+          { x: 10, y: 20 },
+          { x: 15, y: 25 },
+          { x: 20, y: 30 },
+          { x: 25, y: 35 },
+          { x: 30, y: 40 }
+        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8
+      },
+      {
+        label: 'Dataset B',
+        data: [
+          { x: 12, y: 18 },
+          { x: 17, y: 23 },
+          { x: 22, y: 28 },
+          { x: 27, y: 33 },
+          { x: 32, y: 38 }
+        ],
+        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8
+      },
+      {
+        label: 'Dataset C',
+        data: [
+          { x: 8, y: 22 },
+          { x: 13, y: 27 },
+          { x: 18, y: 32 },
+          { x: 23, y: 37 },
+          { x: 28, y: 42 }
+        ],
+        backgroundColor: 'rgba(75, 192, 192, 0.8)',
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Multi-Dataset Scatter Chart',
+        font: {
+          size: 16,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Y Axis',
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <MultiScatterChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="scatter"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   datasets: [
     {
       label: 'Dataset A',
@@ -65,6 +195,69 @@ const data = {
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Multi-Dataset Scatter Chart',
+      font: {
+        size: 16,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'X Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Y Axis',
+        font: {
+          size: 14,
+          weight: '600'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  }
+}
+</script>
 ```
 
 ## Key Features

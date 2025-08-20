@@ -3,36 +3,102 @@ title: Dashed Line Chart
 description: Learn how to create dashed and dotted line charts with Chart.js
 ---
 
+<script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
+import DashedChartExample from '../components/DashedChartExample.vue'
+</script>
+
 # Dashed Line Chart
 
 A dashed line chart uses dashed or dotted lines instead of solid lines. This is great for showing targets, goals, or reference lines that should be visually distinct from actual data.
 
-## Example
+## Basic Dashed Line Chart
 
-<DashedChartExample />
+<ChartCodeToggle 
+  chart-name="line"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      {
+        label: 'Target',
+        data: [15, 18, 20, 22, 25],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderDash: [5, 5],
+        borderDashOffset: 0,
+        borderWidth: 2,
+        fill: false
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Dashed Line Chart Example'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }"
+>
+  <template #chart>
+    <DashedChartExample />
+  </template>
+</ChartCodeToggle>
+
+### Chart Configuration
+
+<!-- #### Using the Component -->
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="line"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
 
 <script setup>
-import DashedChartExample from '../components/DashedChartExample.vue'
-</script>
+import ChartComponent from './ChartComponent.vue'
 
-## Configuration
+const chartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  datasets: [{
+    label: 'Target',
+    data: [15, 18, 20, 22, 25],
+    borderColor: 'rgb(54, 162, 235)',
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderDash: [5, 5],
+    borderDashOffset: 0,
+    borderWidth: 2,
+    fill: false
+  }]
+}
 
-```javascript
-{
-  type: 'line',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Target',
-      data: [15, 18, 20, 22, 25],
-      borderColor: 'rgb(54, 162, 235)',
-      borderDash: [5, 5],
-      borderDashOffset: 0
-    }]
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Dashed Line Chart Example'
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true
+    }
   }
 }
+</script>
 ```
-
 ## Key Properties
 
 - **`borderDash: [5, 5]`** - Creates 5px dash, 5px gap pattern

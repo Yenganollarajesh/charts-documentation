@@ -8,15 +8,153 @@ description: Combo chart combining stacked bars with a line overlay
 A combo chart that combines stacked bars with a line chart overlay, allowing you to show both individual components and their combined total. Perfect for displaying detailed breakdowns alongside overall trends.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import StackedBarLineComboChartExample from '../components/StackedBarLineComboChartExample.vue'
 </script>
 
-<StackedBarLineComboChartExample />
+## Stacked Bar + Line Combo Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="bar"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Product A (Stacked)',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 1,
+        type: 'bar',
+        stack: 'stack1'
+      },
+      {
+        label: 'Product B (Stacked)',
+        data: [8, 15, 7, 12, 9, 11],
+        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 1,
+        type: 'bar',
+        stack: 'stack1'
+      },
+      {
+        label: 'Total Revenue (Line)',
+        data: [20, 34, 10, 17, 11, 14],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        type: 'line',
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Product Sales vs Total Revenue',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            return `${label}: ${value}`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Sales Units',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    interaction: {
+      mode: 'nearest',
+      axis: 'x',
+      intersect: false
+    }
+  }"
+>
+  <template #chart>
+    <StackedBarLineComboChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
     {
@@ -26,7 +164,7 @@ const data = {
       borderColor: 'rgb(255, 99, 132)',
       borderWidth: 1,
       type: 'bar',
-      stack: 'stack1'  // Groups bars together
+      stack: 'stack1'
     },
     {
       label: 'Product B (Stacked)',
@@ -35,7 +173,7 @@ const data = {
       borderColor: 'rgb(54, 162, 235)',
       borderWidth: 1,
       type: 'bar',
-      stack: 'stack1'  // Same stack group
+      stack: 'stack1'
     },
     {
       label: 'Total Revenue (Line)',
@@ -51,6 +189,91 @@ const data = {
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Product Sales vs Total Revenue',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.y
+          return `${label}: ${value}`
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'category',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Sales Units',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  },
+  interaction: {
+    mode: 'nearest',
+    axis: 'x',
+    intersect: false
+  }
+}
+</script>
 ```
 
 ## Key Features

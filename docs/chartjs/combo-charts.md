@@ -3,6 +3,7 @@ title: Combo Charts
 ---
 
 <script setup>
+import ChartCodeToggle from './components/ChartCodeToggle.vue'
 import ComboChartExample from './components/ComboChartExample.vue'
 import TickControlExample from './components/TickControlExample.vue'
 </script>
@@ -13,9 +14,299 @@ Combo charts combine different chart types in a single visualization, allowing y
 
 ## Basic Combo Chart
 
-Here's a comprehensive interactive combo chart with full configuration details:
+<ChartCodeToggle 
+  chart-name="bar"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Sales (Bar)',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        type: 'bar',
+        order: 2
+      },
+      {
+        label: 'Revenue (Line)',
+        data: [65, 59, 80, 81, 56, 55],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        type: 'line',
+        order: 1
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Sales Performance - Units vs Revenue',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            if (context.dataset.type === 'line') {
+              return `${label}: $${value}K`
+            }
+            return `${label}: ${value}`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Units Sold',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y1: {
+        type: 'linear',
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Revenue ($K)',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          },
+          callback: function(value) {
+            return '$' + value + 'K'
+          }
+        },
+        grid: {
+          drawOnChartArea: false
+        }
+      }
+    },
+    interaction: {
+      mode: 'nearest',
+      axis: 'x',
+      intersect: false
+    }
+  }"
+>
+  <template #chart>
+    <ComboChartExample />
+  </template>
+</ChartCodeToggle>
 
-<ComboChartExample />
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="bar"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  datasets: [
+    {
+      label: 'Sales (Bar)',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      borderColor: 'rgb(255, 99, 132)',
+      borderWidth: 2,
+      type: 'bar',
+      order: 2
+    },
+    {
+      label: 'Revenue (Line)',
+      data: [65, 59, 80, 81, 56, 55],
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'rgba(54, 162, 235, 0.1)',
+      borderWidth: 3,
+      fill: true,
+      tension: 0.4,
+      type: 'line',
+      order: 1
+    }
+  ]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Sales Performance - Units vs Revenue',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.y
+          if (context.dataset.type === 'line') {
+            return `${label}: $${value}K`
+          }
+          return `${label}: ${value}`
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'category',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Units Sold',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y1: {
+      type: 'linear',
+      position: 'right',
+      title: {
+        display: true,
+        text: 'Revenue ($K)',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        },
+        callback: function(value) {
+          return '$' + value + 'K'
+        }
+      },
+      grid: {
+        drawOnChartArea: false
+      }
+    }
+  },
+  interaction: {
+    mode: 'nearest',
+    axis: 'x',
+    intersect: false
+  }
+}
+</script>
+```
 
 ## Combo Chart Features
 
@@ -41,73 +332,7 @@ Perfect for complex data scenarios:
 
 ## Configuration Options
 
-### Basic Configuration
-
-```javascript
-const config = {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        type: 'bar',
-        label: 'Sales',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 2
-      },
-      {
-        type: 'line',
-        label: 'Revenue',
-        data: [65, 78, 90, 85, 95, 110],
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgb(54, 162, 235)',
-        borderWidth: 3,
-        fill: false
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Sales vs Revenue'
-      }
-    }
-  }
-}
-```
-
-### Advanced Styling
-
-```javascript
-const advancedConfig = {
-  type: 'bar',
-  data: {
-    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-    datasets: [
-      {
-        type: 'bar',
-        label: 'Volume',
-        data: [100, 150, 200, 250],
-        backgroundColor: 'rgba(75, 192, 192, 0.8)',
-        borderColor: 'rgb(75, 192, 192)',
-        yAxisID: 'y'
-      },
-      {
-        type: 'line',
-        label: 'Price',
-        data: [10, 12, 15, 18],
-        backgroundColor: 'rgba(255, 205, 86, 0.2)',
-        borderColor: 'rgb(255, 205, 86)',
-        yAxisID: 'y1'
-      }
-    ]
-  }
-}
-```
+The combo chart combines different chart types in a single visualization. Here are the key configuration options:
 
 ### Axis Label Customization
 

@@ -86,6 +86,15 @@ export default defineConfig({
             { text: 'Line + Area Range Combo Chart', link: '/chartjs/combo-charts/line-area-range' },
             { text: 'Scatter + Trend Line Combo Chart', link: '/chartjs/combo-charts/scatter-trend-line' }
           ]
+        },
+        {
+          text: 'Candlestick Charts',
+          collapsed: false,
+          items: [
+            { text: 'Basic Candlestick Chart', link: '/chartjs/candlestick-charts' },
+            // { text: 'Alternative Sample Chart', link: '/chartjs/candlestick-charts/alternative-sample' },
+            // { text: 'Provided Sample Chart', link: '/chartjs/candlestick-charts/provided-sample' }
+          ]
         }
       ]
     },
@@ -130,6 +139,12 @@ export default defineConfig({
   vite: {
     ssr: {
       noExternal: ['vitepress']
+    },
+    optimizeDeps: {
+      include: ['apexcharts']
+    },
+    define: {
+      global: 'globalThis'
     }
   },
   head: [

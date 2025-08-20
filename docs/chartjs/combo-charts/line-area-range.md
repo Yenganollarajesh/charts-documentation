@@ -8,15 +8,157 @@ description: Combo chart combining area ranges with a central line
 A combo chart that combines area ranges with a central line, perfect for showing data variability, confidence intervals, or min/max ranges alongside average or median values. Ideal for statistical analysis and uncertainty visualization.
 
 <script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
 import LineAreaRangeComboChartExample from '../components/LineAreaRangeComboChartExample.vue'
 </script>
 
-<LineAreaRangeComboChartExample />
+## Line + Area Range Combo Chart
 
-## Chart Configuration
+<ChartCodeToggle 
+  chart-name="line"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Upper Range (Area)',
+        data: [85, 95, 105, 115, 125, 135],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 0.5)',
+        borderWidth: 1,
+        fill: true,
+        tension: 0.4,
+        type: 'line',
+        pointRadius: 0
+      },
+      {
+        label: 'Lower Range (Area)',
+        data: [45, 55, 65, 75, 85, 95],
+        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+        borderColor: 'rgba(255, 99, 132, 0.3)',
+        borderWidth: 1,
+        fill: true,
+        tension: 0.4,
+        type: 'line',
+        pointRadius: 0
+      },
+      {
+        label: 'Average (Line)',
+        data: [65, 75, 85, 95, 105, 115],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderWidth: 3,
+        fill: false,
+        tension: 0.4,
+        type: 'line',
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Data Range with Average Trend',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            return `${label}: ${value}`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'Month',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Values',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    interaction: {
+      mode: 'nearest',
+      axis: 'x',
+      intersect: false
+    }
+  }"
+>
+  <template #chart>
+    <LineAreaRangeComboChartExample />
+  </template>
+</ChartCodeToggle>
 
-```javascript
-const data = {
+### Chart Configuration
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="line"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
     {
@@ -28,7 +170,7 @@ const data = {
       fill: true,
       tension: 0.4,
       type: 'line',
-      pointRadius: 0  // No visible points for range areas
+      pointRadius: 0
     },
     {
       label: 'Lower Range (Area)',
@@ -39,7 +181,7 @@ const data = {
       fill: true,
       tension: 0.4,
       type: 'line',
-      pointRadius: 0  // No visible points for range areas
+      pointRadius: 0
     },
     {
       label: 'Average (Line)',
@@ -55,6 +197,91 @@ const data = {
     }
   ]
 }
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Data Range with Average Trend',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.parsed.y
+          return `${label}: ${value}`
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'category',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    },
+    y: {
+      type: 'linear',
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Values',
+        font: {
+          size: 14,
+          weight: 'bold'
+        }
+      },
+      ticks: {
+        font: {
+          size: 12
+        }
+      },
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      }
+    }
+  },
+  interaction: {
+    mode: 'nearest',
+    axis: 'x',
+    intersect: false
+  }
+}
+</script>
 ```
 
 ## Key Features

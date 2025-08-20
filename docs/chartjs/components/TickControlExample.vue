@@ -106,36 +106,34 @@ const autoConfig = computed(() => {
 })
 
 const customConfig = computed(() => {
-  return JSON.stringify({
-    type: 'bar',
-    data: sampleData,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: true,
-          text: 'Custom Tick Control'
-        }
-      },
-      scales: {
-        y: {
-          min: 0,           // Start from 0
-          max: 100,         // End at 100
-          ticks: {
-            stepSize: 25,   // Show every 25 units
-            callback: function(value) {
-              return '$' + value + 'K';  // Custom formatting
-            }
-          },
-          title: {
-            display: true,
-            text: 'Sales Value ($K)'
-          }
+  return `{
+  "type": "bar",
+  "data": ${JSON.stringify(sampleData, null, 2)},
+  "options": {
+    "responsive": true,
+    "maintainAspectRatio": false,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Custom Tick Control"
+      }
+    },
+    "scales": {
+      "y": {
+        "min": 0,
+        "max": 100,
+        "ticks": {
+          "stepSize": 25,
+          "callback": "function(value) { return '$' + value + 'K'; }"
+        },
+        "title": {
+          "display": true,
+          "text": "Sales Value ($K)"
         }
       }
     }
-  }, null, 2)
+  }
+}`
 })
 
 const createAutoChart = () => {

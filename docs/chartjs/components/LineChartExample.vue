@@ -3,11 +3,11 @@
     <div class="chart-container">
       <canvas ref="chartCanvas" width="600" height="350"></canvas>
     </div>
-    <hr class="chart-separator">
-    <div class="chart-info">
+    <!-- <hr class="chart-separator"> -->
+    <!-- <div class="chart-info">
       <h4>Chart Configuration</h4>
       <pre><code>{{ chartConfig }}</code></pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -75,7 +75,7 @@ const chartConfig = computed(() => {
       plugins: {
         title: {
           display: true,
-          text: 'Interactive Line Chart Example',
+          text: 'Monthly Sales Performance',
           font: {
             size: 18,
             weight: 'bold'

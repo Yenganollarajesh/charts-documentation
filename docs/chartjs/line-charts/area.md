@@ -3,35 +3,99 @@ title: Area Chart
 description: Learn how to create filled area charts with Chart.js
 ---
 
+<script setup>
+import ChartCodeToggle from '../components/ChartCodeToggle.vue'
+import AreaChartExample from '../components/AreaChartExample.vue'
+</script>
+
 # Area Chart
 
 An area chart is a line chart with the area below the line filled. This is great for showing cumulative data or emphasizing the volume of change over time.
 
-## Example
+## Basic Area Chart
 
-<AreaChartExample />
+<ChartCodeToggle 
+  chart-name="line"
+  :chart-data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [12, 19, 3, 5, 2],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }"
+>
+  <template #chart>
+    <AreaChartExample />
+  </template>
+</ChartCodeToggle>
+
+### Chart Configuration
+
+<!-- #### Using the Component -->
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="line"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
 
 <script setup>
-import AreaChartExample from '../components/AreaChartExample.vue'
-</script>
+import ChartComponent from './ChartComponent.vue'
 
-## Configuration
+const chartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  datasets: [{
+    label: 'Revenue',
+    data: [12, 19, 3, 5, 2],
+    borderColor: 'rgb(75, 192, 192)',
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    fill: true,
+    tension: 0.4,
+    borderWidth: 2
+  }]
+}
 
-```javascript
-{
-  type: 'line',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Revenue',
-      data: [12, 19, 3, 5, 2],
-      borderColor: 'rgb(75, 192, 192)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      fill: true,
-      tension: 0.4
-    }]
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top'
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true
+    }
   }
 }
+</script>
 ```
 
 ## Key Properties

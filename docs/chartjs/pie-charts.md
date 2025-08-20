@@ -3,6 +3,7 @@ title: Pie Charts
 ---
 
 <script setup>
+import ChartCodeToggle from './components/ChartCodeToggle.vue'
 import PieChartExample from './components/PieChartExample.vue'
 </script>
 
@@ -12,9 +13,147 @@ Pie charts are perfect for displaying data as proportions of a whole. They're ex
 
 ## Basic Pie Chart
 
-Here's a comprehensive interactive pie chart with full configuration details:
+<ChartCodeToggle 
+  chart-name="pie"
+  :chart-data="{
+    labels: ['Desktop', 'Mobile', 'Tablet', 'Other'],
+    datasets: [{
+      label: 'Device Usage',
+      data: [65, 25, 8, 2],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 205, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)'
+      ],
+      borderWidth: 3,
+      hoverOffset: 10
+    }]
+  }"
+  :chart-options="{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Device Usage Distribution',
+        font: {
+          size: 18,
+          weight: 'bold'
+        },
+        padding: 20
+      },
+      legend: {
+        display: true,
+        position: 'right',
+        labels: {
+          padding: 15,
+          font: {
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const label = context.label || ''
+            const value = context.parsed
+            const total = context.dataset.data.reduce((a, b) => a + b, 0)
+            const percentage = ((value / total) * 100).toFixed(1)
+            return `${label}: ${value} (${percentage}%)`
+          }
+        }
+      }
+    }
+  }"
+>
+  <template #chart>
+    <PieChartExample />
+  </template>
+</ChartCodeToggle>
 
-<PieChartExample />
+### Chart Configuration
+
+<!-- #### Using the Component -->
+
+```vue
+<template>
+  <ChartComponent 
+    chartName="pie"
+    :chartData="chartData"
+    :chartOptions="chartOptions"
+  />
+</template>
+
+<script setup>
+import ChartComponent from './ChartComponent.vue'
+
+const chartData = {
+  labels: ['Desktop', 'Mobile', 'Tablet', 'Other'],
+  datasets: [{
+    label: 'Device Usage',
+    data: [65, 25, 8, 2],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.8)',
+      'rgba(54, 162, 235, 0.8)',
+      'rgba(255, 205, 86, 0.8)',
+      'rgba(75, 192, 192, 0.8)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)'
+    ],
+    borderWidth: 3,
+    hoverOffset: 10
+  }]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Device Usage Distribution',
+      font: {
+        size: 18,
+        weight: 'bold'
+      },
+      padding: 20
+    },
+    legend: {
+      display: true,
+      position: 'right',
+      labels: {
+        padding: 15,
+        font: {
+          size: 14
+        }
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          const label = context.label || ''
+          const value = context.parsed
+          const total = context.dataset.data.reduce((a, b) => a + b, 0)
+          const percentage = ((value / total) * 100).toFixed(1)
+          return `${label}: ${value} (${percentage}%)`
+        }
+      }
+    }
+  }
+}
+</script>
+```
 
 ## Pie Chart Features
 
@@ -143,7 +282,7 @@ Explore different pie chart variations to see how they can be customized:
 
 - Learn about [Line Charts](/chartjs/line-charts)
 - Explore [Bar Charts](/chartjs/bar-charts)
-- See [Interactive Example: Tick Control](/chartjs/line-charts#interactive-example-tick-control)
+
 
 ---
 

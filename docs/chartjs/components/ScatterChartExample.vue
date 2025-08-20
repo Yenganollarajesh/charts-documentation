@@ -3,11 +3,11 @@
     <div class="chart-container">
       <canvas ref="chartCanvas" width="600" height="350"></canvas>
     </div>
-    <hr class="chart-separator">
+    <!-- <hr class="chart-separator">
     <div class="chart-info">
       <h4>Chart Configuration</h4>
       <pre><code>{{ chartConfig }}</code></pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
